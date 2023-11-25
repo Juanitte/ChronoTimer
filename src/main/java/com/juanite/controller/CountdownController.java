@@ -6,8 +6,13 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
+import java.io.File;
 import java.io.IOException;
 
 public class CountdownController {
@@ -24,13 +29,32 @@ public class CountdownController {
     public Button btn_stop;
     @FXML
     public TextField txt_countdown;
+    @FXML
+    public Slider slider_volume;
+    @FXML
+    public ImageView img_volume;
 
     private int remainingTime;
 
     private Thread countdownThread;
     private volatile boolean isRunning;
+    private MediaPlayer mediaPlayer;
 
+    /**
+     * Method that gets called whenever the GUI is loaded.
+     */
+    @FXML
+    private void initialize() {
+        slider_volume.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (mediaPlayer != null) {
+                mediaPlayer.setVolume(newValue.doubleValue());
+            }
+        });
+    }
 
+    /**
+     * Method that starts the countdown timer based on the text-field input. It also plays a mp3 file.
+     */
     @FXML
     private void startCountdown() {
         if (!isRunning) {
@@ -40,9 +64,8 @@ public class CountdownController {
                 int minutes = Integer.parseInt(timeParts[1]);
                 int seconds = Integer.parseInt(timeParts[2]);
 
-                remainingTime = hours * 3600 + minutes * 60 + seconds; // Convert to seconds
+                remainingTime = hours * 3600 + minutes * 60 + seconds;
             } else {
-                // Handle invalid input (you may show an error message)
                 return;
             }
 
@@ -50,11 +73,18 @@ public class CountdownController {
 
             btn_pause.setVisible(true);
             btn_stop.setVisible(true);
+            btn_start.setVisible(false);
+            txt_countdown.setVisible(false);
+            btn_chrono.setVisible(false);
+            slider_volume.setVisible(true);
+            img_volume.setVisible(true);
+
+            playMP3("victory.mp3");
 
             countdownThread = new Thread(() -> {
                 while (remainingTime > 0 && isRunning) {
                     Platform.runLater(() -> {
-                        actualizarEtiqueta();
+                        refreshLabel();
                     });
 
                     try {
@@ -68,7 +98,7 @@ public class CountdownController {
 
                 Platform.runLater(() -> {
                     isRunning = false;
-                    actualizarEtiqueta();
+                    refreshLabel();
                 });
             });
 
@@ -76,21 +106,26 @@ public class CountdownController {
         }
     }
 
+    /**
+     * Method that pauses the countdown timer or resumes it if already paused. It doesn't affect the music, the mp3 file will continue playing.
+     */
     @FXML
     private void pauseCountdown() {
         if (isRunning) {
             isRunning = false;
             btn_pause.setText("RESUME");
         } else {
-
-
             isRunning = true;
             btn_pause.setText("PAUSE");
+
+            if (mediaPlayer == null) {
+                playMP3("victory.mp3");
+            }
 
             countdownThread = new Thread(() -> {
                 while (remainingTime > 0 && isRunning) {
                     Platform.runLater(() -> {
-                        actualizarEtiqueta();
+                        refreshLabel();
                     });
 
                     try {
@@ -104,39 +139,82 @@ public class CountdownController {
 
                 Platform.runLater(() -> {
                     isRunning = false;
-                    actualizarEtiqueta();
+                    refreshLabel();
                 });
             });
 
             countdownThread.start();
-
         }
     }
 
+    /**
+     * Method that stops the countdown timer as well as the playing mp3 file.
+     */
     @FXML
     private void stopCountdown() {
         isRunning = false;
         btn_pause.setVisible(false);
         btn_stop.setVisible(false);
+        btn_start.setVisible(true);
+        txt_countdown.setVisible(true);
+        btn_chrono.setVisible(true);
+        slider_volume.setVisible(false);
+        img_volume.setVisible(false);
         remainingTime = 0;
-        actualizarEtiqueta();
+        stopMP3();
+        refreshLabel();
     }
 
+    /**
+     * Method that plays a mp3 file
+     * @param fileName - the name of the mp3 file to play (must be allocated in the resources folder).
+     */
+    private void playMP3(String fileName) {
+        File file = new File("src/main/resources/com/juanite/" + fileName);
+        Media media = new Media(file.toURI().toString());
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.dispose();
+        }
+
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.seek(mediaPlayer.getStartTime()));
+        mediaPlayer.volumeProperty().bindBidirectional(slider_volume.valueProperty());
+
+        mediaPlayer.play();
+    }
+
+    /**
+     * Method that stops the mp3 file from playing.
+     */
+    private void stopMP3() {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+        }
+    }
+
+    /**
+     * Method that switches to the chronometer screen.
+     * @throws IOException
+     */
     @FXML
     private void goToChrono() throws IOException {
         isRunning = false;
         App.setRoot("main");
     }
 
-    private void actualizarEtiqueta() {
-        int horas = remainingTime / 3600;
-        int minutos = (remainingTime % 3600) / 60;
-        int segundosRestantes = remainingTime % 60;
-        if(segundosRestantes < 0){
-            segundosRestantes = 0;
+    /**
+     * Method that refreshes the timer with new data.
+     */
+    private void refreshLabel() {
+        int hours = remainingTime / 3600;
+        int minutes = (remainingTime % 3600) / 60;
+        int remainingSeconds = remainingTime % 60;
+        if(remainingSeconds < 0){
+            remainingSeconds = 0;
         }
 
-        String tiempoFormateado = String.format("%02d:%02d:%02d", horas, minutos, segundosRestantes);
-        lbl_countdown.setText(tiempoFormateado);
+        String formattedTime = String.format("%02d:%02d:%02d", hours, minutes, remainingSeconds);
+        lbl_countdown.setText(formattedTime);
     }
 }

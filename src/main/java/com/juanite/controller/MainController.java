@@ -27,6 +27,9 @@ public class MainController {
     private Timeline timeline;
     private int seconds = 0;
 
+    /**
+     * Method that gets called whenever the GUI is loaded.
+     */
     public void initialize() {
         timeline = new Timeline(
                 new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
@@ -42,6 +45,10 @@ public class MainController {
         timeline.setCycleCount(Timeline.INDEFINITE);
     }
 
+    /**
+     * Method that goes to the countdown screen if the timer is not running.
+     * @throws IOException
+     */
     @FXML
     private void goToCountdown() throws IOException {
         if(!AppData.isIsRunning()) {
@@ -51,6 +58,9 @@ public class MainController {
         }
     }
 
+    /**
+     * Method that starts or stops the chronometer. It starts the chronometer if it's stopped and stops it if it's running.
+     */
     @FXML
     private void startStopChrono() {
         if(!AppData.isIsRunning()) {
@@ -64,6 +74,9 @@ public class MainController {
         }
     }
 
+    /**
+     * Method that resets the timer and stops it if needed.
+     */
     @FXML
     private void resetChrono() {
         AppData.setIsRunning(false);
@@ -73,6 +86,9 @@ public class MainController {
         timeline.pause();
     }
 
+    /**
+     * Method that refreshes the timer with new data.
+     */
     private void refreshLabel() {
         int hours = seconds / 3600;
         int minutes = (seconds % 3600) / 60;
