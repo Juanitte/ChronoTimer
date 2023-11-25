@@ -20,6 +20,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         Font.loadFont(getClass().getResourceAsStream("/com/juanite/9064-fontps.ttf"), 14);
         scene = new Scene(loadFXML("main"), 454, 352);
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }

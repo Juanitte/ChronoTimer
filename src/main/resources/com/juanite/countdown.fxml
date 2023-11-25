@@ -46,7 +46,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="btn_stop" layoutX="265.0" layoutY="277.0" mnemonicParsing="false" onAction="#stopCountdown" style="-fx-background-color: #cd5959; -fx-border-style: solid; -fx-border-radius: 8px; -fx-background-radius: 10px; -fx-border-color: #7f3535;" text="STOP" visible="false">
+      <Button fx:id="btn_stop" layoutX="238.0" layoutY="277.0" mnemonicParsing="false" onAction="#stopCountdown" prefHeight="37.0" prefWidth="89.0" style="-fx-background-color: #cd5959; -fx-border-style: solid; -fx-border-radius: 8px; -fx-background-radius: 10px; -fx-border-color: #7f3535;" text="STOP" visible="false">
          <font>
             <Font size="16.0" />
          </font>
@@ -56,8 +56,8 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <Slider fx:id="slider_volume" blockIncrement="0.05" layoutX="383.0" layoutY="55.0" max="1.0" orientation="VERTICAL" value="1.0" visible="false" />
-      <ImageView fx:id="img_volume" fitHeight="30.0" fitWidth="32.0" layoutX="403.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <Slider fx:id="slider_volume" blockIncrement="0.05" layoutX="373.0" layoutY="164.0" max="1.0" orientation="VERTICAL" value="1.0" visible="false" />
+      <ImageView fx:id="img_volume" fitHeight="30.0" fitWidth="32.0" layoutX="393.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@volumeSlider.png" />
          </image>
