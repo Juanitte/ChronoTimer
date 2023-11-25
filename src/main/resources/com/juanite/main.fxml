@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="362.0" prefWidth="454.0" style="-fx-background-color: #d88484;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.juanite.controller.MainController">
+<AnchorPane prefHeight="362.0" prefWidth="454.0" style="-fx-background-color: #df9e9e;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.juanite.controller.MainController">
    <children>
-      <Label layoutX="157.0" layoutY="36.0" text="ChronoTime">
+      <Label layoutX="153.0" layoutY="37.0" text="ChronoTimer">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -17,22 +17,22 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="lbl_chrono" alignment="CENTER" contentDisplay="CENTER" layoutX="78.0" layoutY="146.0" prefHeight="70.0" prefWidth="297.0" style="-fx-border-style: dotted; -fx-background-color: #b06b6b;" text="00:00:00">
+      <Label fx:id="lbl_chrono" alignment="CENTER" contentDisplay="CENTER" layoutX="78.0" layoutY="146.0" prefHeight="70.0" prefWidth="297.0" style="-fx-border-style: dotted; -fx-background-color: #c58080;" text="00:00:00">
          <font>
             <Font size="42.0" />
          </font>
       </Label>
-      <Button fx:id="btn_startStop" layoutX="78.0" layoutY="241.0" mnemonicParsing="false" onAction="#startStopChrono" style="-fx-background-color: #cb5353; -fx-border-style: solid; -fx-border-radius: 8px; -fx-background-radius: 10px; -fx-border-color: #7f3535;" text="START">
+      <Button fx:id="btn_startStop" layoutX="78.0" layoutY="241.0" mnemonicParsing="false" onAction="#startStopChrono" style="-fx-background-color: #cd5959; -fx-border-style: solid; -fx-border-radius: 8px; -fx-background-radius: 10px; -fx-border-color: #7f3535;" text="START">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="btn_countdown" layoutX="248.0" layoutY="241.0" mnemonicParsing="false" onAction="#goToCountdown" style="-fx-background-color: #cb5353; -fx-border-style: solid; -fx-border-radius: 8px; -fx-background-radius: 10px; -fx-border-color: #7f3535;" text="COUNTDOWN">
+      <Button fx:id="btn_countdown" layoutX="248.0" layoutY="241.0" mnemonicParsing="false" onAction="#goToCountdown" style="-fx-background-color: #cd5959; -fx-border-style: solid; -fx-border-radius: 8px; -fx-background-radius: 10px; -fx-border-color: #7f3535;" text="COUNTDOWN">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="btn_reset" layoutX="164.0" layoutY="241.0" mnemonicParsing="false" onAction="#resetChrono" prefHeight="38.0" prefWidth="70.0" style="-fx-background-color: #cb5353; -fx-border-style: solid; -fx-border-radius: 8px; -fx-background-radius: 10px; -fx-border-color: #7f3535;" text="RESET">
+      <Button fx:id="btn_reset" layoutX="164.0" layoutY="241.0" mnemonicParsing="false" onAction="#resetChrono" prefHeight="38.0" prefWidth="70.0" style="-fx-background-color: #cd5959; -fx-border-style: solid; -fx-border-radius: 8px; -fx-background-radius: 10px; -fx-border-color: #7f3535;" text="RESET">
          <font>
             <Font size="16.0" />
          </font>

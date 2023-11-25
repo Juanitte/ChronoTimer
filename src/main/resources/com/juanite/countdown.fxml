@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="362.0" prefWidth="454.0" style="-fx-background-color: #d88484;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.juanite.controller.CountdownController">
+<AnchorPane prefHeight="362.0" prefWidth="454.0" style="-fx-background-color: #df9e9e;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.juanite.controller.CountdownController">
    <children>
-      <Label layoutX="157.0" layoutY="36.0" text="ChronoTime">
+      <Label layoutX="153.0" layoutY="36.0" text="ChronoTimer">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -30,27 +27,27 @@
             <Font name="DS-Digital" size="42.0" />
          </font>
       </Label>
-      <Button fx:id="btn_pause" layoutX="70.0" layoutY="295.0" mnemonicParsing="false" onAction="#pauseCountdown" prefHeight="38.0" prefWidth="82.0" style="-fx-background-color: #cb5353; -fx-border-style: solid; -fx-border-radius: 8px; -fx-background-radius: 10px; -fx-border-color: #7f3535;" text="PAUSE">
+      <Button fx:id="btn_pause" layoutX="63.0" layoutY="295.0" mnemonicParsing="false" onAction="#pauseCountdown" prefHeight="38.0" prefWidth="89.0" style="-fx-background-color: #cd5959; -fx-border-style: solid; -fx-border-radius: 8px; -fx-background-radius: 10px; -fx-border-color: #7f3535;" text="PAUSE" visible="false">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="btn_start" layoutX="77.0" layoutY="245.0" mnemonicParsing="false" onAction="#startCountdown" style="-fx-background-color: #cb5353; -fx-border-style: solid; -fx-border-radius: 8px; -fx-background-radius: 10px; -fx-border-color: #7f3535;" text="START">
+      <Button fx:id="btn_start" layoutX="73.0" layoutY="246.0" mnemonicParsing="false" onAction="#startCountdown" style="-fx-background-color: #cd5959; -fx-border-style: solid; -fx-border-radius: 8px; -fx-background-radius: 10px; -fx-border-color: #7f3535;" text="START">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="btn_chrono" layoutX="250.0" layoutY="295.0" mnemonicParsing="false" onAction="#goToChrono" style="-fx-background-color: #cb5353; -fx-border-style: solid; -fx-border-radius: 8px; -fx-background-radius: 10px; -fx-border-color: #7f3535;" text="CHRONOMETER">
+      <Button fx:id="btn_chrono" layoutX="250.0" layoutY="295.0" mnemonicParsing="false" onAction="#goToChrono" style="-fx-background-color: #cd5959; -fx-border-style: solid; -fx-border-radius: 8px; -fx-background-radius: 10px; -fx-border-color: #7f3535;" text="CHRONOMETER">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="btn_stop" layoutX="171.0" layoutY="295.0" mnemonicParsing="false" onAction="#stopCountdown" style="-fx-background-color: #cb5353; -fx-border-style: solid; -fx-border-radius: 8px; -fx-background-radius: 10px; -fx-border-color: #7f3535;" text="STOP">
+      <Button fx:id="btn_stop" layoutX="171.0" layoutY="295.0" mnemonicParsing="false" onAction="#stopCountdown" style="-fx-background-color: #cd5959; -fx-border-style: solid; -fx-border-radius: 8px; -fx-background-radius: 10px; -fx-border-color: #7f3535;" text="STOP" visible="false">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <TextField fx:id="txt_countdown" alignment="CENTER" layoutX="171.0" layoutY="249.0" prefHeight="26.0" prefWidth="216.0" promptText="00:00:00" style="-fx-background-color: #b06b6b;">
+      <TextField fx:id="txt_countdown" alignment="CENTER" layoutX="171.0" layoutY="249.0" prefHeight="26.0" prefWidth="216.0" promptText="00:00:00" style="-fx-background-color: #c58080;">
          <font>
             <Font size="14.0" />
          </font>

@@ -9,9 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class CountdownController {
 
@@ -33,17 +30,26 @@ public class CountdownController {
     private Thread countdownThread;
     private volatile boolean isRunning;
 
-    private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 
     @FXML
     private void startCountdown() {
         if (!isRunning) {
-            if(Validator.isValid(txt_countdown.getText())) {
+            if (Validator.isValid(txt_countdown.getText())) {
+                String[] timeParts = txt_countdown.getText().split(":");
+                int hours = Integer.parseInt(timeParts[0]);
+                int minutes = Integer.parseInt(timeParts[1]);
+                int seconds = Integer.parseInt(timeParts[2]);
 
+                remainingTime = hours * 3600 + minutes * 60 + seconds; // Convert to seconds
+            } else {
+                // Handle invalid input (you may show an error message)
+                return;
             }
 
-            remainingTime = remainingTime / 1000; // Convertir a segundos
             isRunning = true;
+
+            btn_pause.setVisible(true);
+            btn_stop.setVisible(true);
 
             countdownThread = new Thread(() -> {
                 while (remainingTime > 0 && isRunning) {
@@ -52,7 +58,43 @@ public class CountdownController {
                     });
 
                     try {
-                        Thread.sleep(1000); // Esperar 1 segundo
+                        Thread.sleep(1000); // Wait for 1 second
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    remainingTime--;
+                }
+
+                Platform.runLater(() -> {
+                    isRunning = false;
+                    actualizarEtiqueta();
+                });
+            });
+
+            countdownThread.start();
+        }
+    }
+
+    @FXML
+    private void pauseCountdown() {
+        if (isRunning) {
+            isRunning = false;
+            btn_pause.setText("RESUME");
+        } else {
+
+
+            isRunning = true;
+            btn_pause.setText("PAUSE");
+
+            countdownThread = new Thread(() -> {
+                while (remainingTime > 0 && isRunning) {
+                    Platform.runLater(() -> {
+                        actualizarEtiqueta();
+                    });
+
+                    try {
+                        Thread.sleep(1000); // Wait for 1 second
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -72,13 +114,10 @@ public class CountdownController {
     }
 
     @FXML
-    private void pauseCountdown() {
-        isRunning = false;
-    }
-
-    @FXML
     private void stopCountdown() {
         isRunning = false;
+        btn_pause.setVisible(false);
+        btn_stop.setVisible(false);
         remainingTime = 0;
         actualizarEtiqueta();
     }
@@ -93,6 +132,9 @@ public class CountdownController {
         int horas = remainingTime / 3600;
         int minutos = (remainingTime % 3600) / 60;
         int segundosRestantes = remainingTime % 60;
+        if(segundosRestantes < 0){
+            segundosRestantes = 0;
+        }
 
         String tiempoFormateado = String.format("%02d:%02d:%02d", horas, minutos, segundosRestantes);
         lbl_countdown.setText(tiempoFormateado);
